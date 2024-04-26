@@ -1,0 +1,68 @@
+carThread(){
+    // Bil kører hen til door
+    lock(mutex)
+    carWait = true
+    condSignal(entry)
+
+    while(!entryDoorOpen)
+        condWait(entry, mutex)
+    
+    // Bil kører ind
+    carWait = false
+    condSignal(entry)
+    unlock(mutex) 
+
+    wait(parkTime)
+
+    // Bil kører hen til exit
+    lock(mutex)
+    carWait = true
+    condSignal(exit)
+
+    while(!exitDoorOpen)
+        condWait(exit, mutex)
+    
+    // Bil kører ud
+    carWait = false
+    condSignal(exit)
+    unlock(mutex) 
+
+    wait(exitTime)
+}
+
+entryGuardThread(){
+    lock(mutex)
+
+    while(!carWait)
+        condWait(entry, mutex)
+
+    // Open entry door
+    entryDoorOpen = true
+    condSignal(entry)
+
+    while(carWait == true)
+        condWait(entry, mutex)
+    
+    // Close entry door
+    entryDoorOpen = false
+    unlock(mutex)
+}
+
+
+exitGuardThread(){
+    lock(mutex)
+
+    while(!carWait)
+        condWait(exit, mutex)
+
+    // Open exit door
+    exitDoorOpen = true
+    condSignal(exit)
+
+    while(carWait == true)
+        condWait(exit, mutex)
+    
+    // Close exit door
+    exitDoorOpen = false
+    unlock(mutex)
+}

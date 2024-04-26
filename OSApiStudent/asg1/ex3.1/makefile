@@ -1,0 +1,20 @@
+
+NAME= hello
+
+all: $(NAME)
+
+$(NAME): $(NAME).o
+	$(CXX) -o $(NAME) $(NAME).o
+
+$(NAME).o: $(NAME).cpp
+	$(CXX) -c $(NAME).cpp
+
+clean:
+	rm -f $(NAME) $(NAME).o
+
+help:
+	@echo "available targets:"
+	@echo all
+	@echo clean
+	@echo help 
+

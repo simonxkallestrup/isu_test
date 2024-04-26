@@ -1,0 +1,10 @@
+AlignTrailingComments : true
+AllowAllParametersOfDeclarationOnNextLine : true
+AllowShortFunctionsOnASingleLine : true
+AllowShortIfStatementsOnASingleLine : true
+AllowShortLoopsOnASingleLine : true
+BreakBeforeBraces : Allman
+ConstructorInitializerAllOnOneLineOrOnePerLine : true
+IndentWidth : 2
+AlignConsecutiveDeclarations : true
+AlignConsecutiveAssignments : true
